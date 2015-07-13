@@ -14,7 +14,7 @@ RUN apt-get update && \
         libboost-all-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV BITCOIN_VER v0.10.2
+ENV BITCOIN_VER v0.11.0
 
 # Build and install bitcoind.
 RUN git clone https://github.com/bitcoin/bitcoin.git /tmp/bitcoin && \
