@@ -1,0 +1,14 @@
+# Volume container to store the blockchain.
+blockchain:
+    image: kelvinchen/bitcoind:latest
+    volumes:
+        - "/home/bitcoin/.bitcoin"
+    command: ['true']
+
+bitcoind:
+    image: kelvinchen/bitcoind:latest
+    restart: always
+    volumes_from:
+        - blockchain
+    ports:
+        - "8333:8333"
