@@ -11,13 +11,14 @@ RUN apt-get update && \
         pkg-config \
         libssl-dev \
         automake \
+        libcurl4-openssl-dev \
         libboost-all-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV BITCOIN_VER v0.11.0
+ENV BITCOIN_VER 0.11A
 
 # Build and install bitcoind.
-RUN git clone https://github.com/bitcoin/bitcoin.git /tmp/bitcoin && \
+RUN git clone https://github.com/bitcoinxt/bitcoinxt.git /tmp/bitcoin && \
     cd /tmp/bitcoin && \
     git checkout $BITCOIN_VER && \
     ./autogen.sh && \
