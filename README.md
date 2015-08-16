@@ -13,8 +13,16 @@ $ docker run --restart always -dp 8333:8333 --volumes-from bitcoind_data kelvinc
 ```
 
 ### Using docker-compose
+Pre-built images:
 ```bash
+$ docker-compose pull
 $ docker-compose up -d
+```
+
+Build the images yourself:
+```bash
+$ docker-compose -f build.yml build
+$ docker-compose -f build.yml up -d
 ```
 
 ## Setup
