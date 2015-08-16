@@ -1,0 +1,5 @@
+bitcoind:
+    extends:
+        file: docker-compose.yml
+        service: bitcoind
+    build: .
