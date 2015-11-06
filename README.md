@@ -2,14 +2,8 @@
 This is a docker image for bitcoind so that you can easily run a full node.
 
 ## Running
-Start the data only container:
 ```bash
-$ docker run --name bitcoind_data -v /home/bitcoin/.bitcoin kelvinchen/bitcoind:latest true
-```
-
-Start bitcoind:
-```bash
-$ docker run --restart always -dp 8333:8333 --volumes-from bitcoind_data kelvinchen/bitcoind:latest
+$ docker run --restart always -dp 8333:8333 -v blockchain:/home/bitcoin/.bitcoin kelvinchen/bitcoind:latest
 ```
 
 ### Using docker-compose
