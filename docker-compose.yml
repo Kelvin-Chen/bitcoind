@@ -2,6 +2,6 @@ bitcoind:
     image: kelvinchen/bitcoind:latest
     restart: always
     volumes:
-        - "/home/bitcoin/.bitcoin"
+        - "blockchain:/home/bitcoin/.bitcoin"
     ports:
         - "8333:8333"
