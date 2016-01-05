@@ -9,6 +9,7 @@ RUN apt-get install --no-install-recommends -y software-properties-common \
     && add-apt-repository -y ppa:bitcoin/bitcoin \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
+        curl \
         git \
         ca-certificates \
         build-essential \
