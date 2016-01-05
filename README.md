@@ -27,6 +27,4 @@ persistent.
 ### JSON-RPC Authentication
 This docker image automatically generates a password for the JSON-RPC
 interface. You can use your own password by overwriting the `BITCOIND_PASSWORD`
-environment variable. The environment variable is only taken into account on
-first run. The password is saved in the bitcoin.conf file and will not be
-overwritten by changes to the env var. The username is `btcrpc`.
+environment variable. The username is `btcrpc`.
