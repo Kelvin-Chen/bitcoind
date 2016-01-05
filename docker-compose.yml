@@ -1,7 +1,0 @@
-bitcoind:
-    image: kelvinchen/bitcoind:latest
-    restart: always
-    volumes:
-        - "blockchain:/home/bitcoin/.bitcoin"
-    ports:
-        - "8333:8333"

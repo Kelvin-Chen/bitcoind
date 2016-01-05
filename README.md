@@ -2,21 +2,15 @@
 This is a docker image for bitcoind so that you can easily run a full node.
 
 ## Running
+To start a bitcoind node run the command:
 ```bash
-$ docker run --restart always -dp 8333:8333 -v blockchain:/home/bitcoin/.bitcoin kelvinchen/bitcoind:latest
+./run.sh
 ```
 
-### Using docker-compose
-Pre-built images:
+### Building the Image Yourself
+If you want to build the image, simply run
 ```bash
-$ docker-compose pull
-$ docker-compose up -d
-```
-
-Build the images yourself:
-```bash
-$ docker-compose -f build.yml build
-$ docker-compose -f build.yml up -d
+./build.sh
 ```
 
 ## Setup
@@ -33,4 +27,6 @@ persistent.
 ### JSON-RPC Authentication
 This docker image automatically generates a password for the JSON-RPC
 interface. You can use your own password by overwriting the `BITCOIND_PASSWORD`
-environment variable. The username is `btcrpc`.
+environment variable. The environment variable is only taken into account on
+first run. The password is saved in the bitcoin.conf file and will not be
+overwritten by changes to the env var. The username is `btcrpc`.

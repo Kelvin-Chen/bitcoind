@@ -1,43 +1,45 @@
-FROM kelvinchen/base:latest
+FROM ubuntu:latest
 MAINTAINER Kelvin Chen <kelvin@kelvinchen.org>
 
+VOLUME /root/.bitcoin
+EXPOSE 8332 8333
+
 # Install dependencies.
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
+RUN apt-get install --no-install-recommends -y software-properties-common \
+    && add-apt-repository -y ppa:bitcoin/bitcoin \
+    && apt-get update \
+    && apt-get install --no-install-recommends -y \
+        git \
+        ca-certificates \
         build-essential \
         libtool \
         autotools-dev \
-        autoconf \
+        automake \
         pkg-config \
         libssl-dev \
-        automake \
-        libcurl4-openssl-dev \
-        libboost-all-dev && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+        libevent-dev \
+        bsdmainutils \
+        libboost-system-dev \
+        libboost-filesystem-dev \
+        libboost-chrono-dev \
+        libboost-program-options-dev \
+        libboost-test-dev \
+        libboost-thread-dev \
+        libdb4.8-dev \
+        libdb4.8++-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV BITCOIN_VER 0.11B
+ARG BITCOIN_VER=0.12
 
 # Build and install bitcoind.
-RUN git clone https://github.com/bitcoinxt/bitcoinxt.git /tmp/bitcoin && \
-    cd /tmp/bitcoin && \
-    git checkout $BITCOIN_VER && \
-    ./autogen.sh && \
-    ./configure --disable-wallet --disable-tests --without-miniupnpc && \
-    make -j $(nproc) && make install && \
-    rm -rf /tmp/bitcoin
+RUN git clone https://github.com/bitcoin/bitcoin.git /tmp/bitcoin \
+    && cd /tmp/bitcoin \
+    && git checkout $BITCOIN_VER \
+    && ./autogen.sh \
+    && ./configure --disable-tests --without-miniupnpc \
+    && make -j $(nproc) && make install \
+    && rm -rf /tmp/bitcoin
 
-# Create the bitcoin user and group.
-RUN groupadd bitcoin && \
-    useradd -g bitcoin -s /bin/bash -c "User for bitcoind." \
-        -d "/home/bitcoin" bitcoin && \
-    mkdir -p /home/bitcoin/.bitcoin && \
-    chown -R bitcoin:bitcoin /home/bitcoin
+COPY bitcoin.conf start.sh /
 
-USER bitcoin
-WORKDIR /home/bitcoin
-
-EXPOSE 8332 8333
-
-COPY bitcoin.conf start.sh /home/bitcoin/
-
-CMD ["/home/bitcoin/start.sh"]
+CMD ["/start.sh"]
