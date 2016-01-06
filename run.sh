@@ -18,6 +18,7 @@ done
 
 docker run -d \
     --name bitcoind \
+    -h bitcoind \
     --restart always \
     -p 8332:8332 \
     -p 8333:8333 \
