@@ -30,7 +30,7 @@ RUN apt-get install --no-install-recommends -y software-properties-common \
         libdb4.8++-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ARG BITCOIN_VER=0.12
+ENV BITCOIN_VER=0.12
 
 # Build and install bitcoind.
 RUN git clone https://github.com/bitcoin/bitcoin.git /tmp/bitcoin \
