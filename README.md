@@ -2,15 +2,26 @@
 This is a docker image for bitcoind so that you can easily run a full node.
 
 ## Running
-To start a bitcoind node run the command:
+Pull the image:
 ```bash
-./run.sh
+$ docker pull kelvinchen/bitcoind:latest
+```
+Or build it yourself:
+```bash
+$ ./build.sh
 ```
 
-### Building the Image Yourself
-If you want to build the image, simply run
+Start bitcoind:
 ```bash
-./build.sh
+$ ./run.sh
+
+# Or, if you want to set the RPC password yourself
+$ ./run.sh -e envfile
+
+# "envfile" is a single file containing the environment
+# variable for the password.
+# e.g.
+# BITCOIND_PASSWORD=password
 ```
 
 ## Setup
@@ -21,8 +32,8 @@ If you want to build the image, simply run
 
 ### Data Directory
 The data directory for the blockchain and other bitcoind related files is
-located at `/home/bitcoin/.bitcoin`. Make a volume to keep the blockchain
-persistent.
+located at `/root/.bitcoin`. The default run script creates a named volume
+called `blockchain`.
 
 ### JSON-RPC Authentication
 This docker image automatically generates a password for the JSON-RPC
