@@ -2,7 +2,7 @@
 
 cd ${0%/*}
 
-randpass=$(head -c 4096 /dev/random | sha256sum | awk '{print $1}')
+randpass=$(head -c 4096 /dev/urandom | sha256sum | awk '{print $1}')
 ${BITCOIND_PASSWORD:=$randpass}
 
 cp -n /bitcoin.conf ~/.bitcoin/bitcoin.conf

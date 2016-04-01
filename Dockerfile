@@ -30,7 +30,7 @@ RUN apt-get install --no-install-recommends -y software-properties-common \
         libdb4.8++-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV BITCOIN_VER=v0.12.0rc1
+ENV BITCOIN_VER=v0.12.0
 
 # Build and install bitcoind.
 RUN git clone https://github.com/bitcoin/bitcoin.git /tmp/bitcoin \
@@ -41,6 +41,6 @@ RUN git clone https://github.com/bitcoin/bitcoin.git /tmp/bitcoin \
     && make -j $(nproc) && make install \
     && rm -rf /tmp/bitcoin
 
-COPY bitcoin.conf start.sh /
+COPY bitcoin.conf bitcoind.sh /
 
-CMD ["/start.sh"]
+CMD ["/bitcoind.sh"]
