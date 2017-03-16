@@ -3,39 +3,19 @@ This is a docker image for bitcoind so that you can easily run a full node.
 
 ## Running
 Pull the image:
-```bash
-$ docker pull kelvinchen/bitcoind:latest
-```
-Or build it yourself:
-```bash
-$ ./build.sh
-```
 
-Start bitcoind:
-```bash
-$ ./run.sh
+    docker pull kelvinchen/bitcoind:latest
 
-# Or, if you want to set the RPC password yourself
-$ ./run.sh -e envfile
+Create a volume to store the config file and the blockchain. This step is
+optional if you want to mount the volume to a local directory instead of
+using named Docker volumes.
 
-# "envfile" is a single file containing the environment
-# variable for the password.
-# e.g.
-# BITCOIND_PASSWORD=password
-```
+    docker volume create bitcoin
 
-## Setup
+Finally, start the container
 
-### Ports
-- JSON-RPC: 8332
-- bitcoind: 8333
+    docker run -d --name bitcoind --restart always -p 8333:8333 -v bitcoin:/usr/local/bitcoin kelvinchen/bitcoind:latest
 
-### Data Directory
-The data directory for the blockchain and other bitcoind related files is
-located at `/root/.bitcoin`. The default run script creates a named volume
-called `blockchain`.
-
-### JSON-RPC Authentication
-This docker image automatically generates a password for the JSON-RPC
-interface. You can use your own password by overwriting the `BITCOIND_PASSWORD`
-environment variable. The username is `btcrpc`.
+## Configuration
+The `bitcoin.conf` config file is stored in the volume you used when running
+the container.
